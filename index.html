@@ -9,5 +9,22 @@
 
 <body>
   Hello, this is the place!
+  <button type="button" id="choose-robot">Choose a robot</button>
+  <script>
+    var button = document.getElementById('choose-robot');
+    button.addEventListener('pointerup', function(event) {
+      navigator.bluetooth.requestDevice({
+        acceptAllDevices: true,
+        optionalServices: ['battery_service']
+      })
+      .then(device => {
+         alert('Found');
+         console.log('Device', device);
+      })
+      .catch(error => {
+         console.log(error);
+      });
+    });
+  </script>
 </body>
 </html>
