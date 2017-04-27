@@ -15,9 +15,9 @@
   <br>
   <button type="button" id="choose-robot">Choose a robot</button>
   <script>
+    var button = document.getElementById('choose-robot');
     if (navigator && navigator.bluetooth &&
         navigator.bluetooth.requestDevice) {
-      var button = document.getElementById('choose-robot');
       button.addEventListener('pointerup', function(event) {
         navigator.bluetooth.requestDevice({
           acceptAllDevices: true,
@@ -32,6 +32,7 @@
         });
       });
     } else {
+      button.disabled = true;
       alert('This browser does not support Bluetooth');
     }
   </script>
