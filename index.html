@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>POC</title>
   <link rel="shortcut icon" href="https://static.wixstatic.com/media/f548c4_ffbe62f1d83e4fdfa6d57f9a736730ad.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/f548c4_ffbe62f1d83e4fdfa6d57f9a736730ad.png" type="image/png">
-    <link rel="apple touch icon" href="https://static.wixstatic.com/media/f548c4_ffbe62f1d83e4fdfa6d57f9a736730ad.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/f548c4_ffbe62f1d83e4fdfa6d57f9a736730ad.png" type="image/png">
+  <link rel="apple touch icon" href="https://static.wixstatic.com/media/f548c4_ffbe62f1d83e4fdfa6d57f9a736730ad.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/f548c4_ffbe62f1d83e4fdfa6d57f9a736730ad.png" type="image/png">
 </head>
 
 <body>
@@ -15,20 +15,25 @@
   <br>
   <button type="button" id="choose-robot">Choose a robot</button>
   <script>
-    var button = document.getElementById('choose-robot');
-    button.addEventListener('pointerup', function(event) {
-      navigator.bluetooth.requestDevice({
-        acceptAllDevices: true,
-        optionalServices: ['battery_service']
-      })
-      .then(device => {
-         alert('Found');
-         console.log('Device', device);
-      })
-      .catch(error => {
-         console.log(error);
+    if (navigator && navigator.bluetooth &&
+        navigator.bluetooth.requestDevice) {
+      var button = document.getElementById('choose-robot');
+      button.addEventListener('pointerup', function(event) {
+        navigator.bluetooth.requestDevice({
+          acceptAllDevices: true,
+          optionalServices: ['battery_service']
+        })
+        .then(device => {
+           alert('Found');
+           console.log('Device', device);
+        })
+        .catch(error => {
+           console.log(error);
+        });
       });
-    });
+    } else {
+      alert('This browser does not support Bluetooth');
+    }
   </script>
 </body>
 </html>
