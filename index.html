@@ -26,6 +26,7 @@
         .then(device => {
            alert('Found');
            console.log('Device', device);
+           window.device = device;
         })
         .catch(error => {
            console.log(error);
